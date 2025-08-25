@@ -1,0 +1,14 @@
+services:
+  nextapp:
+    build:
+      context: .
+    ports:
+      - "60001:3000"   # host:container
+    restart: unless-stopped
+    # (optional) simple healthcheck (alpine has busybox wget)
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
